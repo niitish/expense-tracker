@@ -1,29 +1,28 @@
 import "./Expenses.css";
-import ExpenseItem from "./ExpenseItem";
+import ExpenseList from "./ExpensesList";
 import ExpensesFilter from "./ExpensesFilter";
 import Card from "./Card";
 import { useState } from "react";
 
 const Expenses = (props) => {
-  const [month, setMonth] = useState("Nov");
+  const [month, setMonth] = useState("November");
 
   const filterChangeHandler = (selectedMonth) => {
-    console.log(selectedMonth);
     setMonth(selectedMonth);
   };
+
+  const filteredExpenses = props.items.filter((expense) => {
+    return (
+      Intl.DateTimeFormat("en-US", { month: "long" }).format(expense.date) ===
+      month
+    );
+  });
 
   return (
     <div>
       <Card className="expenses">
         <ExpensesFilter selected={month} onChangeFilter={filterChangeHandler} />
-        {props.items.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        <ExpenseList items={filteredExpenses} />
       </Card>
     </div>
   );
