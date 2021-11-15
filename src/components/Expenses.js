@@ -5,23 +5,20 @@ import Card from "./Card";
 import { useState } from "react";
 
 const Expenses = (props) => {
-  const [month, setMonth] = useState("November");
+  const [year, setYear] = useState("2021");
 
-  const filterChangeHandler = (selectedMonth) => {
-    setMonth(selectedMonth);
+  const filterChangeHandler = (selectedYear) => {
+    setYear(selectedYear);
   };
 
   const filteredExpenses = props.items.filter((expense) => {
-    return (
-      Intl.DateTimeFormat("en-US", { month: "long" }).format(expense.date) ===
-      month
-    );
+    return expense.date.getFullYear().toString() === year;
   });
 
   return (
     <div>
       <Card className="expenses">
-        <ExpensesFilter selected={month} onChangeFilter={filterChangeHandler} />
+        <ExpensesFilter selected={year} onChangeFilter={filterChangeHandler} />
         <ExpenseList items={filteredExpenses} />
       </Card>
     </div>
