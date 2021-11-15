@@ -8,7 +8,7 @@ function App() {
       id: "e1",
       title: "Notebook",
       amount: 50,
-      date: new Date(2020, 10, 14),
+      date: new Date(2021, 10, 14),
     },
   ];
 
